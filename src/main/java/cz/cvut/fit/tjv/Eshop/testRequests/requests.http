@@ -1,0 +1,23 @@
+GET http://localhost:8080/user/view_all
+
+GET http://localhost:8080/user/12
+
+POST http://localhost:8080/user/new_user
+Content-Type: application/json
+
+{
+    "name" : "testUser",
+    "dateOfBirth" : "13.12.2020"
+}
+
+GET http://localhost:8080/product/view_all
+
+GET http://localhost:8080/product/42
+
+POST http://localhost:8080/product/new_product
+Content-Type: application/json
+
+{
+    "name" : "testProduct",
+    "price" : "145"
+}
