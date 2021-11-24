@@ -2,11 +2,15 @@ package cz.cvut.fit.tjv.Eshop.api.controller;
 
 import cz.cvut.fit.tjv.Eshop.business.ProductService;
 import cz.cvut.fit.tjv.Eshop.converter.ProductConverter;
+import cz.cvut.fit.tjv.Eshop.domain.Product;
 import cz.cvut.fit.tjv.Eshop.dto.ProductDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Collection;
 
 /**
@@ -21,22 +25,33 @@ public class ProductController {
      * Send get request to localhost:8080/product/view_all to view all products
      */
     @GetMapping(path = "/")
-    public Collection<ProductDTO> getProducts(){
+    public Collection<Product> getProducts(){
 
-        return ProductConverter.fromModelMany(productService.getProducts());
+        return productService.getProducts();
     }
     /**
      * Send get request to localhost:8080/product/{id} to view a product by ID
      */
     @GetMapping("/{productId}")
     public Object getById(@PathVariable("productId") Long productId){
-        ProductDTO product;
+        Product product;
         try {
-            product = ProductConverter.fromModel(productService.getById(productId));
-        }catch (IllegalArgumentException e){
-            return HttpStatus.NOT_FOUND;
+            product = productService.getById(productId);
+        }catch (EntityNotFoundException e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
         }
         return product;
+    }
+
+    @DeleteMapping("/{productId}")
+    public Object deleteById(@PathVariable("productId") Long productId){
+        if (productService.exists(productId)){
+            productService.deleteById(productId);
+            return ResponseEntity.status(HttpStatus.OK).body("Successfully deleted product with ID: " + productId);
+        }
+        else{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
+        }
     }
     /**
      * Send post request with a request body to localhost:8080/product/new_product to create a new product
@@ -48,12 +63,13 @@ public class ProductController {
      *      }
      */
     @PostMapping("/")
-    public HttpStatus registerNewProduct(@RequestBody ProductDTO productDTO){
+    public Product registerNewProduct(@RequestBody ProductDTO productDTO){
+        Product product;
         try {
-            productService.addNewProduct(ProductConverter.toModel(productDTO));
+            product = productService.addNewProduct(ProductConverter.toModel(productDTO));
         } catch (IllegalArgumentException e){
-            return HttpStatus.BAD_REQUEST;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
-        return HttpStatus.OK;
+        return product;
     }
 }

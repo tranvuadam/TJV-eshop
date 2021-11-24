@@ -33,6 +33,10 @@ public class Product {
                 '}';
     }
 
+    public Product(){
+
+    }
+
     public Product(String name, Integer price) {
         this.name = name;
         this.price = price;

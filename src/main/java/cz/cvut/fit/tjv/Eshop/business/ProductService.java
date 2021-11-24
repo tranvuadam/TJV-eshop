@@ -20,19 +20,21 @@ public class ProductService {
     }
 
     public Product getById(Long productId){
-        Product product;
-        try {
-            product = productRepository.getById(productId);
-        }
-        catch (EntityNotFoundException e){
-            throw new IllegalStateException("Product with Id " + productId + " does not exist.");
-        }
-        return product;
+        return productRepository.getById(productId);
+    }
+
+    public boolean exists(Long productId){
+        return productRepository.existsById(productId);
     }
 
     @Transactional
-    public void addNewProduct(Product product){
-        productRepository.save(product);
+    public void deleteById(Long productId){
+        productRepository.deleteById(productId);
+    }
+
+    @Transactional
+    public Product addNewProduct(Product product){
+        return productRepository.save(product);
     }
 
 }
