@@ -26,7 +26,6 @@ public class ProductController {
      */
     @GetMapping(path = "/")
     public Collection<Product> getProducts(){
-
         return productService.getProducts();
     }
     /**

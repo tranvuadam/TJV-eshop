@@ -17,22 +17,26 @@ public class UserService {
 
     @Autowired
     private UserJpaRepository userRepository;
+
     public List<User> getUsers(){
         return userRepository.findAll();
     }
 
     public User getById(Long userId){
-        User user;
-        try {
-            user = userRepository.getById(userId);
-        }
-        catch (EntityNotFoundException e){
-            throw new IllegalStateException("User with Id " + userId + " does not exist.");
-        }
-        return user;
+        return userRepository.getById(userId);
     }
+
+    public boolean exists(Long userId){
+        return userRepository.existsById(userId);
+    }
+
     @Transactional
-    public void addNewUser(User user){
-        userRepository.save(user);
+    public void deleteById(Long userId){
+        userRepository.deleteById(userId);
+    }
+
+    @Transactional
+    public User addNewUser(User user){
+        return userRepository.save(user);
     }
 }
