@@ -1,8 +1,4 @@
-GET http://localhost:8080/user/view_all
-
-GET http://localhost:8080/user/12
-
-POST http://localhost:8080/user/new_user
+POST http://localhost:8080/user/
 Content-Type: application/json
 
 {
@@ -10,14 +6,98 @@ Content-Type: application/json
     "dateOfBirth" : "13.12.2020"
 }
 
-GET http://localhost:8080/product/view_all
+POST http://localhost:8080/user/
+Content-Type: application/json
 
-GET http://localhost:8080/product/42
+{
+    "name" : "testUser2",
+    "dateOfBirth" : "13.12.2020"
+}
+GET http://localhost:8080/user/
 
-POST http://localhost:8080/product/new_product
+GET http://localhost:8080/user/1
+
+DELETE http://localhost:8080/user/1
+
+GET http://localhost:8080/user/
+
+
+
+
+POST http://localhost:8080/product/
 Content-Type: application/json
 
 {
     "name" : "testProduct",
     "price" : "145"
 }
+
+POST http://localhost:8080/product/
+Content-Type: application/json
+
+{
+    "name" : "testProduct2",
+    "price" : "145"
+}
+
+POST http://localhost:8080/product/
+Content-Type: application/json
+
+{
+    "name" : "testProduct3",
+    "price" : "145"
+}
+
+GET http://localhost:8080/product/
+
+GET http://localhost:8080/product/1
+
+DELETE http://localhost:8080/product/1
+
+GET http://localhost:8080/product/
+
+
+
+POST http://localhost:8080/package/
+{
+    "products" : [
+    {
+        "id": 2,
+        "name": "testProduct2",
+        "price": 145
+    },
+    {
+        "id": 3,
+        "name": "testProduct3",
+        "price": 145
+    }
+],
+    "sale" : "15"
+}
+
+POST http://localhost:8080/package/
+{
+    "products" : [
+    {
+        "id": 2,
+        "name": "testProduct2",
+        "price": 145
+    },
+    {
+        "id": 3,
+        "name": "testProduct3",
+        "price": 145
+    }
+],
+    "sale" : "45"
+}
+
+GET http://localhost:8080/package/
+
+GET http://localhost:8080/package/2
+
+DELETE http://localhost:8080/package/2
+
+GET http://localhost:8080/package/
+
+

@@ -38,7 +38,11 @@ public class SalesPackage {
                 '}';
     }
 
-    public SalesPackage(HashSet<Product> products, Integer sale) {
+    public SalesPackage(){
+
+    }
+
+    public SalesPackage(Set<Product> products, Integer sale) {
         this.products = products;
         this.sale = sale;
     }
