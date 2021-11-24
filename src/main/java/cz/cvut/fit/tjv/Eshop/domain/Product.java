@@ -1,13 +1,12 @@
 package cz.cvut.fit.tjv.Eshop.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 @Entity
 public class Product {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_id_sequence")
+    @SequenceGenerator(name="product_id_sequence", sequenceName = "product_id_sequence", allocationSize = 1)
     private Long id;
     private String name;
     private Integer price;

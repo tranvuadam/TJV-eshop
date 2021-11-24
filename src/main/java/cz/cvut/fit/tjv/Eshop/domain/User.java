@@ -1,18 +1,15 @@
 package cz.cvut.fit.tjv.Eshop.domain;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.io.Serializable;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity(name="user_account")
-public class User implements Serializable {
-
+public class User {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_sequence")
+    @SequenceGenerator(name="user_id_sequence", sequenceName = "user_id_sequence", allocationSize = 1)
     private Long id;
 
     private String name;

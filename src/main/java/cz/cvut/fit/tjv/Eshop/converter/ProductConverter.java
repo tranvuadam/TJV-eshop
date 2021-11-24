@@ -11,7 +11,7 @@ public class ProductConverter {
         return new Product(productDTO.getName(), productDTO.getPrice());
     }
     public static ProductDTO fromModel(Product product) {
-        return new ProductDTO(product.getName(), product.getPrice());
+        return new ProductDTO(product.getName(), product.getPrice(), product.getId());
     }
     public static Collection<Product> toModelMany(Collection<ProductDTO> productDTOs){
         Collection<Product> products = new ArrayList<>();

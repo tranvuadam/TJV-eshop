@@ -11,7 +11,7 @@ public class UserConverter {
         return new User(userDTO.getName(), userDTO.getDateOfBirth());
     }
     public static UserDTO fromModel(User user) {
-        return new UserDTO(user.getName(), user.getDateOfBirth());
+        return new UserDTO(user.getName(), user.getDateOfBirth(), user.getId());
     }
     public Collection<User> toModelMany(Collection<UserDTO> userDTOs){
         Collection<User> users = new ArrayList<>();

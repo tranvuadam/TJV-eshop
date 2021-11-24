@@ -25,17 +25,18 @@ public class ProductController {
      * Send get request to localhost:8080/product/view_all to view all products
      */
     @GetMapping(path = "/")
-    public Collection<Product> getProducts(){
-        return productService.getProducts();
+    public Collection<ProductDTO> getProducts(){
+
+        return ProductConverter.fromModelMany(productService.getProducts());
     }
     /**
      * Send get request to localhost:8080/product/{id} to view a product by ID
      */
     @GetMapping("/{productId}")
     public Object getById(@PathVariable("productId") Long productId){
-        Product product;
+        ProductDTO product;
         try {
-            product = productService.getById(productId);
+            product = ProductConverter.fromModel(productService.getById(productId));
         }catch (EntityNotFoundException e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
         }

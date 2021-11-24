@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDate;
 
 public class UserDTO {
+
+    private Long id;
+
     public String name;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "d.M.yyyy")
@@ -13,9 +16,14 @@ public class UserDTO {
     public UserDTO() {
     }
 
-    public UserDTO(String name, LocalDate dateOfBirth) {
+    public UserDTO(String name, LocalDate dateOfBirth, Long id) {
         this.name = name;
         this.dateOfBirth = dateOfBirth;
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getName() {

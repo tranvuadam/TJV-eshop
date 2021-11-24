@@ -8,9 +8,8 @@ import java.util.Set;
 public class SalesPackage {
 
     @Id
-    @GeneratedValue
-            //(strategy = GenerationType.SEQUENCE, generator = "sales_package_id_sequence")
-            //@SequenceGenerator(name="sales_package_id_sequence", sequenceName = "sales_package_id_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sales_package_id_sequence")
+    @SequenceGenerator(name="sales_package_id_sequence", sequenceName = "sales_package_id_sequence", allocationSize = 1)
     private Long id;
 
     @ManyToMany

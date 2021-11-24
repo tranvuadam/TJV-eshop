@@ -28,17 +28,17 @@ public class UserController {
     * Send get request to localhost:8080/user/ to view all users
     */
     @GetMapping(path = "/")
-    public Collection<User> getUsers(){
-        return userService.getUsers();
+    public Collection<UserDTO> getUsers(){
+        return UserConverter.fromModelMany(userService.getUsers());
     }
     /**
      * Send get request to localhost:8080/user/ to view a user by ID
      */
     @GetMapping("/{userId}")
-    public User getById(@PathVariable("userId") Long userId){
-        User user;
+    public UserDTO getById(@PathVariable("userId") Long userId){
+        UserDTO user;
         try {
-            user = userService.getById(userId);
+            user = UserConverter.fromModel(userService.getById(userId));
         }catch (EntityNotFoundException e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
         }
