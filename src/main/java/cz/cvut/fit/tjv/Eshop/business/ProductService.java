@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.Collection;
+import java.util.Set;
 
 @Component
 public class ProductService {
@@ -26,6 +27,15 @@ public class ProductService {
 
     public boolean exists(Long productId){
         return productRepository.existsById(productId);
+    }
+
+    public boolean checkProductsExists(Set<Product> products){
+        for (Product p: products) {
+            if(!productRepository.existsById(p.getId())){
+                return false;
+            }
+        }
+        return true;
     }
 
     @Transactional

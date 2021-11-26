@@ -1,8 +1,11 @@
 package cz.cvut.fit.tjv.Eshop.api.controller;
 
+import cz.cvut.fit.tjv.Eshop.business.ProductService;
 import cz.cvut.fit.tjv.Eshop.business.SalesPackageService;
+import cz.cvut.fit.tjv.Eshop.converter.ProductConverter;
 import cz.cvut.fit.tjv.Eshop.converter.SalesPackageConverter;
 import cz.cvut.fit.tjv.Eshop.domain.SalesPackage;
+import cz.cvut.fit.tjv.Eshop.dto.ProductDTO;
 import cz.cvut.fit.tjv.Eshop.dto.SalesPackageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +22,9 @@ public class SalesPackageController {
 
     @Autowired
     private SalesPackageService salesPackageService;
+
+    @Autowired
+    private ProductService productService;
 
     @GetMapping(path = "/")
     public Collection<SalesPackageDTO> getSalesPackages(){
@@ -40,6 +46,15 @@ public class SalesPackageController {
         }
 
     }
+    @PostMapping("/{packageId}")
+    public Object updateById(@PathVariable("packageId") Long packageId, @RequestBody SalesPackageDTO salesPackageDTO){
+        if (salesPackageService.exists(packageId) && productService.checkProductsExists(salesPackageDTO.getProducts())){
+            return SalesPackageConverter.fromModel(salesPackageService.updateById(packageId, salesPackageDTO));
+        }
+        else{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
+        }
+    }
 
     @DeleteMapping("/{packageId}")
     public Object deleteById(@PathVariable("packageId") Long packageId){
@@ -56,6 +71,7 @@ public class SalesPackageController {
     public SalesPackage registerNewPackage(@RequestBody SalesPackageDTO salesPackageDTO){
         SalesPackage salesPackage;
         try {
+            productService.checkProductsExists(salesPackageDTO.getProducts());
             salesPackage = salesPackageService.addNewSalesPackage(SalesPackageConverter.toModel(salesPackageDTO));
         } catch (IllegalArgumentException e){
 
