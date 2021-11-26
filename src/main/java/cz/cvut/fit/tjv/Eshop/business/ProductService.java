@@ -2,6 +2,7 @@ package cz.cvut.fit.tjv.Eshop.business;
 
 import cz.cvut.fit.tjv.Eshop.dao.ProductJpaRepository;
 import cz.cvut.fit.tjv.Eshop.domain.Product;
+import cz.cvut.fit.tjv.Eshop.dto.ProductDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -37,4 +38,12 @@ public class ProductService {
         return productRepository.save(product);
     }
 
+    @Transactional
+    public Product updateById(Long productId, ProductDTO productDTO) {
+        //exists called before updateById, no need to check if_present
+        Product product = productRepository.findById(productId).get();
+        product.setName(productDTO.getName());
+        product.setPrice(productDTO.getPrice());
+        return productRepository.save(product);
+    }
 }

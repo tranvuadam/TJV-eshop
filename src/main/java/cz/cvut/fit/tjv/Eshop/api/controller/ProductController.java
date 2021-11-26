@@ -53,6 +53,17 @@ public class ProductController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
         }
     }
+
+    @PostMapping("/{productId}")
+    public Object updateById(@PathVariable("productId") Long productId, @RequestBody ProductDTO productDTO){
+        if (productService.exists(productId)){
+            return ProductConverter.fromModel(productService.updateById(productId, productDTO));
+        }
+        else{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
+        }
+    }
+
     /**
      * Send post request with a request body to localhost:8080/product/new_product to create a new product
      * Example:
