@@ -31,6 +31,11 @@ public class SalesPackageController {
         return SalesPackageConverter.fromModelMany(salesPackageService.getSalesPackages());
     }
 
+    @GetMapping(path = "")
+    public Collection<SalesPackageDTO> getSalesPackagesContainingProduct(@RequestParam(name = "product_id") Long productId){
+        return SalesPackageConverter.fromModelMany(salesPackageService.getSalesPackagesContainingProduct(productId));
+    }
+
     @GetMapping("/{packageId}")
     public SalesPackageDTO getById(@PathVariable("packageId") Long packageId){
         if(packageId != null){

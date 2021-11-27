@@ -6,6 +6,7 @@ import cz.cvut.fit.tjv.Eshop.converter.SalesPackageConverter;
 import cz.cvut.fit.tjv.Eshop.converter.UserConverter;
 import cz.cvut.fit.tjv.Eshop.domain.Product;
 import cz.cvut.fit.tjv.Eshop.domain.User;
+import cz.cvut.fit.tjv.Eshop.dto.ProductDTO;
 import cz.cvut.fit.tjv.Eshop.dto.SalesPackageDTO;
 import cz.cvut.fit.tjv.Eshop.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;

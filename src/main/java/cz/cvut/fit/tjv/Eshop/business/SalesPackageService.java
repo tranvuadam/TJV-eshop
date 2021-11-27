@@ -63,4 +63,8 @@ public class SalesPackageService {
             salesPackage.setSale(salesPackageDTO.getSale());
         return salesPackageRepository.save(salesPackage);
     }
+
+    public Collection<SalesPackage> getSalesPackagesContainingProduct(Long productId) {
+        return salesPackageRepository.findByProductsIdInSalesPackage(productId);
+    }
 }

@@ -60,4 +60,8 @@ public class ProductService {
 
         return productRepository.save(product);
     }
+
+    public Collection<Product> getProductsWithPriceLowerThan(Integer price) {
+        return productRepository.findProductWithPriceLowerThan(price);
+    }
 }

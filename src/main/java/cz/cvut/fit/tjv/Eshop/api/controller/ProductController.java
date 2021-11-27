@@ -21,17 +21,19 @@ import java.util.Collection;
 public class ProductController {
     @Autowired
     private ProductService productService;
-    /**
-     * Send get request to localhost:8080/product/view_all to view all products
-     */
+
     @GetMapping(path = "/")
     public Collection<ProductDTO> getProducts(){
 
         return ProductConverter.fromModelMany(productService.getProducts());
     }
-    /**
-     * Send get request to localhost:8080/product/{id} to view a product by ID
-     */
+
+    @GetMapping(path = "")
+    public Collection<ProductDTO> getProductsWithPriceLowerThan(@RequestParam(name = "highest_price") Integer price){
+
+        return ProductConverter.fromModelMany(productService.getProductsWithPriceLowerThan(price));
+    }
+
     @GetMapping("/{productId}")
     public Object getById(@PathVariable("productId") Long productId){
         ProductDTO product;
