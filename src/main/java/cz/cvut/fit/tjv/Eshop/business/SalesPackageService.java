@@ -48,6 +48,7 @@ public class SalesPackageService {
         salesPackageRepository.deleteById(salesPackageId);
     }
 
+    @Transactional
     public SalesPackage addNewSalesPackage(SalesPackage salesPackage){
         return salesPackageRepository.save(salesPackage);
     }
@@ -56,8 +57,10 @@ public class SalesPackageService {
     public SalesPackage updateById(Long packageId, SalesPackageDTO salesPackageDTO) {
         //exists called before updateById, no need to check if_present
         SalesPackage salesPackage = salesPackageRepository.findById(packageId).get();
-        salesPackage.setProducts(salesPackageDTO.getProducts());
-        salesPackage.setSale(salesPackageDTO.getSale());
+        if(!salesPackageDTO.getProducts().isEmpty())
+            salesPackage.setProducts(salesPackageDTO.getProducts());
+        if(salesPackageDTO.getSale() != null)
+            salesPackage.setSale(salesPackageDTO.getSale());
         return salesPackageRepository.save(salesPackage);
     }
 }

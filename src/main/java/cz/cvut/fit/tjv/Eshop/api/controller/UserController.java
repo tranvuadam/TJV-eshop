@@ -2,9 +2,11 @@ package cz.cvut.fit.tjv.Eshop.api.controller;
 
 import cz.cvut.fit.tjv.Eshop.business.UserService;
 import cz.cvut.fit.tjv.Eshop.converter.ProductConverter;
+import cz.cvut.fit.tjv.Eshop.converter.SalesPackageConverter;
 import cz.cvut.fit.tjv.Eshop.converter.UserConverter;
 import cz.cvut.fit.tjv.Eshop.domain.Product;
 import cz.cvut.fit.tjv.Eshop.domain.User;
+import cz.cvut.fit.tjv.Eshop.dto.SalesPackageDTO;
 import cz.cvut.fit.tjv.Eshop.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,16 +26,12 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    /**
-    * Send get request to localhost:8080/user/ to view all users
-    */
+
     @GetMapping(path = "/")
     public Collection<UserDTO> getUsers(){
         return UserConverter.fromModelMany(userService.getUsers());
     }
-    /**
-     * Send get request to localhost:8080/user/ to view a user by ID
-     */
+
     @GetMapping("/{userId}")
     public UserDTO getById(@PathVariable("userId") Long userId){
         UserDTO user;
@@ -43,6 +41,16 @@ public class UserController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
         }
         return user;
+    }
+
+    @PostMapping("/{userId}")
+    public Object updateById(@PathVariable("userId") Long userId, @RequestBody UserDTO userDTO){
+        if (userService.exists(userId)){
+            return UserConverter.fromModel(userService.updateById(userId, userDTO));
+        }
+        else{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
+        }
     }
 
     @DeleteMapping("/{userId}")
@@ -55,14 +63,7 @@ public class UserController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
         }
     }
-    /**
-     * Send post request with a request body to localhost:8080/user/ to create a new user
-     * Example:
-     *      POST localhost:8080/user/
-     *      {
-     *          "name": "userExample"
-     *      }
-     */
+
     @PostMapping("/")
     public User registerNewUser(@RequestBody UserDTO userDTO){
         User user;
