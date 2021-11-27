@@ -55,7 +55,7 @@ public class ProductController {
     }
 
     @PostMapping("/{productId}")
-    public Object updateById(@PathVariable("productId") Long productId, @RequestBody ProductDTO productDTO){
+    public ProductDTO updateById(@PathVariable("productId") Long productId, @RequestBody ProductDTO productDTO){
         if (productService.exists(productId)){
             return ProductConverter.fromModel(productService.updateById(productId, productDTO));
         }
@@ -74,13 +74,13 @@ public class ProductController {
      *      }
      */
     @PostMapping("/")
-    public Product registerNewProduct(@RequestBody ProductDTO productDTO){
-        Product product;
+    public ProductDTO registerNewProduct(@RequestBody ProductDTO productDTO){
+        ProductDTO newProductDTO;
         try {
-            product = productService.addNewProduct(ProductConverter.toModel(productDTO));
+            newProductDTO = ProductConverter.fromModel(productService.addNewProduct(ProductConverter.toModel(productDTO)));
         } catch (IllegalArgumentException e){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
-        return product;
+        return newProductDTO;
     }
 }

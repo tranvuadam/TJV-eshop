@@ -65,14 +65,14 @@ public class UserController {
     }
 
     @PostMapping("/")
-    public User registerNewUser(@RequestBody UserDTO userDTO){
-        User user;
+    public UserDTO registerNewUser(@RequestBody UserDTO userDTO){
+        UserDTO newUserDTO;
         try {
-            user = userService.addNewUser(UserConverter.toModel(userDTO));
+            newUserDTO = UserConverter.fromModel(userService.addNewUser(UserConverter.toModel(userDTO)));
         } catch (IllegalArgumentException e){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
-        return user;
+        return newUserDTO;
     }
 
 }
