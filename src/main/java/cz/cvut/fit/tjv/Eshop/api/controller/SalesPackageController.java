@@ -52,9 +52,11 @@ public class SalesPackageController {
 
     }
     @PostMapping("/{packageId}")
-    public Object updateById(@PathVariable("packageId") Long packageId, @RequestBody SalesPackageDTO salesPackageDTO){
+    public Object updateById(@PathVariable("packageId") Long packageId,
+                             @RequestBody SalesPackageDTO salesPackageDTO,
+                             @RequestParam(name = "merge_products", required = false, defaultValue = "false") Boolean mergeProducts){
         if (salesPackageService.exists(packageId) && productService.checkProductsExists(salesPackageDTO.getProducts())){
-            return SalesPackageConverter.fromModel(salesPackageService.updateById(packageId, salesPackageDTO));
+            return SalesPackageConverter.fromModel(salesPackageService.updateById(packageId, salesPackageDTO, mergeProducts));
         }
         else{
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");

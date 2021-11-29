@@ -8,11 +8,11 @@ import cz.cvut.fit.tjv.Eshop.dto.SalesPackageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 @Component
 public class SalesPackageService {
@@ -37,11 +37,12 @@ public class SalesPackageService {
 
 
 
-    /*private Set<Product> mergeProducts (Set<Product> productListA, Set<Product> productListB){
-        Set<Product> mergedSet = new HashSet<Product>(productListA);
+    TreeSet<Product> mergeProducts (Set<Product> productListA, Set<Product> productListB){
+        TreeSet<Product> mergedSet = new TreeSet<Product>(productListA);
         mergedSet.addAll(productListB);
         return mergedSet;
-    }*/
+    }
+
 
     @Transactional
     public void deleteById(Long salesPackageId){
@@ -54,11 +55,14 @@ public class SalesPackageService {
     }
 
     @Transactional
-    public SalesPackage updateById(Long packageId, SalesPackageDTO salesPackageDTO) {
-        //exists called before updateById, no need to check if_present
-        SalesPackage salesPackage = salesPackageRepository.findById(packageId).get();
-        if(!salesPackageDTO.getProducts().isEmpty())
-            salesPackage.setProducts(salesPackageDTO.getProducts());
+    public SalesPackage updateById(Long packageId, SalesPackageDTO salesPackageDTO, Boolean mergeProducts) {
+        SalesPackage salesPackage = salesPackageRepository.getById(packageId);
+        if(salesPackageDTO.getProducts() != null)
+            if(mergeProducts)
+                salesPackage.setProducts(mergeProducts(salesPackageDTO.getProducts(), salesPackage.getProducts()));
+            else
+                salesPackage.setProducts(salesPackageDTO.getProducts());
+
         if(salesPackageDTO.getSale() != null)
             salesPackage.setSale(salesPackageDTO.getSale());
         return salesPackageRepository.save(salesPackage);
