@@ -60,4 +60,19 @@ class SalesPackageServiceTest {
         Assertions.assertEquals(products2, salesPackageReturned.getProducts());
         Assertions.assertEquals(250, salesPackageReturned.getSale());
     }
+
+    @Test
+    void mergeProducts(){
+        Product product1 = new Product("product1", 145);
+        Product product2 = new Product("product2", 145);
+        Product product3 = new Product("product3", 145);
+
+        Set<Product> products = new HashSet<Product>(Arrays.asList(product1, product2));
+
+        Set<Product> products2 = new HashSet<Product>(Arrays.asList(product1, product2, product3));
+
+        Set<Product> productsMerged = salesPackageService.mergeProducts(products2, products);
+        Assertions.assertEquals(3, productsMerged.size());
+        Assertions.assertEquals(productsMerged, products2);
+    }
 }

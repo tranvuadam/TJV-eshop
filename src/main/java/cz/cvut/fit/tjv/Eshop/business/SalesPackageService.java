@@ -37,8 +37,8 @@ public class SalesPackageService {
 
 
 
-    TreeSet<Product> mergeProducts (Set<Product> productListA, Set<Product> productListB){
-        TreeSet<Product> mergedSet = new TreeSet<Product>(productListA);
+    public Set<Product> mergeProducts (Set<Product> productListA, Set<Product> productListB){
+        Set<Product> mergedSet = new HashSet<Product>(productListA);
         mergedSet.addAll(productListB);
         return mergedSet;
     }
