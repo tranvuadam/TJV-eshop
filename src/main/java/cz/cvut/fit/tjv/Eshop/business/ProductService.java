@@ -50,7 +50,6 @@ public class ProductService {
 
     @Transactional
     public Product updateById(Long productId, ProductDTO productDTO) {
-        //exists called before updateById, no need to check if_present
         Product product = productRepository.getById(productId);
         if(productDTO.getName() != null)
             product.setName(productDTO.getName());

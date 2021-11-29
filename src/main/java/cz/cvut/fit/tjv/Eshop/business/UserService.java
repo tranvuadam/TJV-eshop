@@ -46,8 +46,7 @@ public class UserService {
 
     @Transactional
     public User updateById(Long userId, UserDTO userDTO) {
-        //exists called before updateById, no need to check if_present
-        User user = userRepository.findById(userId).get();
+        User user = userRepository.getById(userId);
         if(userDTO.getName() != null)
             user.setName(userDTO.getName());
 
