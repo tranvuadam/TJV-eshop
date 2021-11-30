@@ -26,12 +26,12 @@ public class SalesPackageController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping(path = "/")
+    @GetMapping(path = "")
     public Collection<SalesPackageDTO> getSalesPackages(){
         return SalesPackageConverter.fromModelMany(salesPackageService.getSalesPackages());
     }
 
-    @GetMapping(path = "")
+    @GetMapping(path = "", params = "product_id")
     public Collection<SalesPackageDTO> getSalesPackagesContainingProduct(@RequestParam(name = "product_id") Long productId){
         return SalesPackageConverter.fromModelMany(salesPackageService.getSalesPackagesContainingProduct(productId));
     }

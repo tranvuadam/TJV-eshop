@@ -28,7 +28,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping(path = "/")
+    @GetMapping(path = "")
     public Collection<UserDTO> getUsers(){
         return UserConverter.fromModelMany(userService.getUsers());
     }

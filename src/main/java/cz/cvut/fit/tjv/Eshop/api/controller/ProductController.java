@@ -22,13 +22,13 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping(path = "/")
+    @GetMapping(path = "")
     public Collection<ProductDTO> getProducts(){
 
         return ProductConverter.fromModelMany(productService.getProducts());
     }
 
-    @GetMapping(path = "")
+    @GetMapping(path = "", params = "highest_price")
     public Collection<ProductDTO> getProductsWithPriceLowerThan(@RequestParam(name = "highest_price") Integer price){
 
         return ProductConverter.fromModelMany(productService.getProductsWithPriceLowerThan(price));
@@ -66,15 +66,6 @@ public class ProductController {
         }
     }
 
-    /**
-     * Send post request with a request body to localhost:8080/product/new_product to create a new product
-     * Example:
-     *      POST localhost:8080/product/new_product
-     *      {
-     *          "name": "productExample",
-     *          "price": 100
-     *      }
-     */
     @PostMapping("/")
     public ProductDTO registerNewProduct(@RequestBody ProductDTO productDTO){
         ProductDTO newProductDTO;
