@@ -42,12 +42,6 @@ class UserControllerTest {
     String testDateOfBirth = "23.12.1991";
     UserDTO userDTO = new UserDTO("user1", LocalDate.of(1991, 12, 23), 1L);
 
-    private String UserToJson(UserDTO userDTO){
-        return "{" + "\"id\": " + '"' + userDTO.getId().toString() + '"' + ", "
-                + "\"name\": " + '"' + userDTO.getName() + '"' + ", "
-                + "\"dateOfBirth\": " + '"' + testDateOfBirth + '"'  + "}";
-    }
-
     @BeforeEach
     void setup(){
         Mockito.when(userService.getUsers()).thenReturn(users);
