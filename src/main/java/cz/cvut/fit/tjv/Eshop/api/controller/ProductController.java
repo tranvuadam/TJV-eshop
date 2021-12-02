@@ -66,7 +66,7 @@ public class ProductController {
         }
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public ProductDTO registerNewProduct(@RequestBody ProductDTO productDTO){
         ProductDTO newProductDTO;
         try {

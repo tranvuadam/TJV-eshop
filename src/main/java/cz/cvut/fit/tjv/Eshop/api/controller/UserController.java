@@ -47,6 +47,7 @@ public class UserController {
     @PostMapping("/{userId}")
     public Object updateById(@PathVariable("userId") Long userId, @RequestBody UserDTO userDTO){
         if (userService.exists(userId)){
+            System.out.println(userDTO.toString());
             return UserConverter.fromModel(userService.updateById(userId, userDTO));
         }
         else{
@@ -65,7 +66,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public UserDTO registerNewUser(@RequestBody UserDTO userDTO){
         UserDTO newUserDTO;
         try {

@@ -74,7 +74,7 @@ public class SalesPackageController {
         }
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public SalesPackageDTO registerNewPackage(@RequestBody SalesPackageDTO salesPackageDTO){
         SalesPackageDTO newSalesPackageDTO;
         try {
