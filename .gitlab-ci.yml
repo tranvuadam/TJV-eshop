@@ -3,9 +3,11 @@ stages:
 
 build:
     stage: build
+# loading gradle docker image and running gradle build command, which runs tests and compiles the application
     image: gradle:7-jdk17-alpine
     script:
         - gradle build
+# Artifacts define which files will be stored for a limited time after CI is finished
     artifacts:
         paths:
             - build/libs/*.jar
