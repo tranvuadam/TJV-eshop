@@ -11,6 +11,7 @@ import cz.cvut.fit.tjv.Eshop.dto.SalesPackageDTO;
 import cz.cvut.fit.tjv.Eshop.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -47,7 +48,6 @@ public class UserController {
     @PostMapping("/{userId}")
     public Object updateById(@PathVariable("userId") Long userId, @RequestBody UserDTO userDTO){
         if (userService.exists(userId)){
-            System.out.println(userDTO.toString());
             return UserConverter.fromModel(userService.updateById(userId, userDTO));
         }
         else{
@@ -59,7 +59,7 @@ public class UserController {
     public Object deleteById(@PathVariable("userId") Long userId){
         if (userService.exists(userId)){
             userService.deleteById(userId);
-            return ResponseEntity.status(HttpStatus.OK).body("Successfully deleted user with ID: " + userId);
+            return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON).body(new UserDTO());
         }
         else{
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
