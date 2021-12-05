@@ -7,8 +7,10 @@ import cz.cvut.fit.tjv.Eshop.converter.SalesPackageConverter;
 import cz.cvut.fit.tjv.Eshop.domain.SalesPackage;
 import cz.cvut.fit.tjv.Eshop.dto.ProductDTO;
 import cz.cvut.fit.tjv.Eshop.dto.SalesPackageDTO;
+import cz.cvut.fit.tjv.Eshop.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -67,7 +69,7 @@ public class SalesPackageController {
     public Object deleteById(@PathVariable("packageId") Long packageId){
         if (salesPackageService.exists(packageId)){
             salesPackageService.deleteById(packageId);
-            return ResponseEntity.status(HttpStatus.OK).body("Successfully deleted package with ID: " + packageId);
+            return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON).body(new SalesPackageDTO());
         }
         else{
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");

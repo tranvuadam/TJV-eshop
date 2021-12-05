@@ -4,8 +4,10 @@ import cz.cvut.fit.tjv.Eshop.business.ProductService;
 import cz.cvut.fit.tjv.Eshop.converter.ProductConverter;
 import cz.cvut.fit.tjv.Eshop.domain.Product;
 import cz.cvut.fit.tjv.Eshop.dto.ProductDTO;
+import cz.cvut.fit.tjv.Eshop.dto.SalesPackageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -49,7 +51,7 @@ public class ProductController {
     public Object deleteById(@PathVariable("productId") Long productId){
         if (productService.exists(productId)){
             productService.deleteById(productId);
-            return ResponseEntity.status(HttpStatus.OK).body("Successfully deleted product with ID: " + productId);
+            return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON).body(new ProductDTO());
         }
         else{
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");

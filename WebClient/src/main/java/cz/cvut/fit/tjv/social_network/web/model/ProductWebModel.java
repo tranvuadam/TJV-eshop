@@ -1,13 +1,13 @@
 package cz.cvut.fit.tjv.social_network.web.model;
 
-public class UserWebModel extends UserDTO{
+public class ProductWebModel extends ProductDTO{
     private boolean error;
 
-    public UserWebModel() {
+    public ProductWebModel() {
     }
 
-    public UserWebModel(boolean error, UserDTO userDto) {
-        super(userDto.getName(), userDto.getDateOfBirth(), userDto.getId());
+    public ProductWebModel(boolean error, ProductDTO productDTO) {
+        super(productDTO.getName(), productDTO.getPrice(), productDTO.getId());
         this.error = error;
     }
 

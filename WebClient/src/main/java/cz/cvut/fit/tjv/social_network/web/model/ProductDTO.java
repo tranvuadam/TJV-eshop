@@ -28,6 +28,9 @@ public class ProductDTO {
         this.price = price;
         this.id = id;
     }
+
+    public void setId(Long id) { this.id = id; }
+
     public Long getId() {
         return id;
     }

@@ -40,7 +40,6 @@ public class UserWebController {
 
     @PostMapping("/edit")
     public String editUserSubmit(@ModelAttribute UserDTO userDto, Model model) {
-        System.out.println(userDto.getId());
         model.addAttribute("userDto", userClient.update(userDto));
         return "userEdit";
     }
