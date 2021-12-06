@@ -34,6 +34,9 @@ public class SalesPackageDTO {
                 '}';
     }
 
+    public SalesPackageDTO(){
+    }
+
     public SalesPackageDTO(Set<ProductDTO> products, Integer sale, Long id) {
         this.products = products;
         this.sale = sale;
@@ -42,6 +45,10 @@ public class SalesPackageDTO {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Set<ProductDTO> getProducts() {

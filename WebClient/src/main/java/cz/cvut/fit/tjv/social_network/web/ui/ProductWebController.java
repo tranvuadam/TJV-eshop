@@ -26,6 +26,12 @@ public class ProductWebController {
         return "products";
     }
 
+    @GetMapping(params = "highest_price")
+    public String listWithPriceLowerThan(@RequestParam(name = "highest_price") Integer price, Model model) {
+        model.addAttribute("products", productClient.readAllWithPriceLowerThan(price));
+        return "products";
+    }
+
     @GetMapping("/edit")
     public String editProduct(@RequestParam(name = "id") Long Id, Model model) {
         model.addAttribute("productDto", productClient.readById(Id));

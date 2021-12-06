@@ -11,14 +11,16 @@ package cz.cvut.fit.tjv.social_network.web.data;
 
 import cz.cvut.fit.tjv.social_network.web.model.ProductDTO;
 import cz.cvut.fit.tjv.social_network.web.model.ProductWebModel;
-import cz.cvut.fit.tjv.social_network.web.model.UserDTO;
-import cz.cvut.fit.tjv.social_network.web.model.UserWebModel;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Component
@@ -43,6 +45,14 @@ public class ProductClient {
                 .retrieve() // request specification finished
                 .bodyToFlux(ProductWebModel.class); // interpret response body as a collection
     }
+
+    public Flux<ProductWebModel> readAllWithPriceLowerThan(Integer price) {
+        return productWebClient.get() // HTTP GET
+                .uri("?highest_price=" + price)
+                .retrieve() // request specification finished
+                .bodyToFlux(ProductWebModel.class); // interpret response body as a collection
+    }
+
 
     public Mono<ProductWebModel> readById(Long Id) {
         return productWebClient.get()

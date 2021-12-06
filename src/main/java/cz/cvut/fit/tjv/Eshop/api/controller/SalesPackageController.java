@@ -53,6 +53,7 @@ public class SalesPackageController {
         }
 
     }
+
     @PostMapping("/{packageId}")
     public Object updateById(@PathVariable("packageId") Long packageId,
                              @RequestBody SalesPackageDTO salesPackageDTO,
@@ -79,13 +80,11 @@ public class SalesPackageController {
     @PostMapping("")
     public SalesPackageDTO registerNewPackage(@RequestBody SalesPackageDTO salesPackageDTO){
         SalesPackageDTO newSalesPackageDTO;
-        try {
-            productService.checkProductsExists(salesPackageDTO.getProducts());
+        if(productService.checkProductsExists(salesPackageDTO.getProducts()))
             newSalesPackageDTO = SalesPackageConverter.fromModel(salesPackageService.addNewSalesPackage(
                     SalesPackageConverter.toModel(salesPackageDTO)));
-        } catch (IllegalArgumentException e){
-
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Product with id: " + e.getMessage() + " does not exist.");
+        else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         return newSalesPackageDTO;
     }
