@@ -2,7 +2,9 @@ package cz.cvut.fit.tjv.social_network.web.ui;
 
 import cz.cvut.fit.tjv.social_network.web.data.ProductClient;
 import cz.cvut.fit.tjv.social_network.web.model.ProductDTO;
+import cz.cvut.fit.tjv.social_network.web.model.ProductFilterForm;
 import cz.cvut.fit.tjv.social_network.web.model.ProductWebModel;
+import cz.cvut.fit.tjv.social_network.web.model.SalesPackageFilterForm;
 import cz.cvut.fit.tjv.social_network.web.model.UserDTO;
 import cz.cvut.fit.tjv.social_network.web.model.UserWebModel;
 import org.springframework.stereotype.Controller;
@@ -20,15 +22,21 @@ public class ProductWebController {
         this.productClient = productClient;
     }
 
-    @GetMapping
+    @GetMapping()
     public String list(Model model) {
         model.addAttribute("products", productClient.readAll());
+        model.addAttribute("productFilterForm", new ProductFilterForm());
         return "products";
     }
 
-    @GetMapping(params = "highest_price")
-    public String listWithPriceLowerThan(@RequestParam(name = "highest_price") Integer price, Model model) {
-        model.addAttribute("products", productClient.readAllWithPriceLowerThan(price));
+    @GetMapping("/filter")
+    public String listWithPriceLowerThan( Model model, @ModelAttribute ProductFilterForm productFilterForm) {
+        if(productFilterForm.getHighestPrice() == null)
+            model.addAttribute("products", productClient.readAll());
+        else
+            model.addAttribute("products", productClient.readAllWithPriceLowerThan(productFilterForm.getHighestPrice()));
+
+        model.addAttribute("productFilterForm", new ProductFilterForm());
         return "products";
     }
 

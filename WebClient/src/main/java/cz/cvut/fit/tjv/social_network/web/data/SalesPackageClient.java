@@ -43,6 +43,13 @@ public class SalesPackageClient {
                 .bodyToFlux(SalesPackageWebModel.class); // interpret response body as a collection
     }
 
+    public Flux<SalesPackageWebModel> getSalesPackagesContainingProduct(Long id) {
+        return salesPackageWebClient.get()
+                .uri("?product_id=" + id) // HTTP GET
+                .retrieve() // request specification finished
+                .bodyToFlux(SalesPackageWebModel.class); // interpret response body as a collection
+    }
+
     public Flux<SalesPackageWebModel> readAllWithPriceLowerThan(Integer price) {
         return salesPackageWebClient.get() // HTTP GET
                 .uri("?highest_price=" + price)

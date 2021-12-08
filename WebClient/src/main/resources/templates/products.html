@@ -19,7 +19,13 @@
         </li>
     </ul>
 </nav>
-<h1>Product management</h1>
+<div>
+    <h1>Product management</h1>
+    <form class="form my-2 my-lg-0" action="/product/filter" th:object="${productFilterForm}" method="get">
+        <input class="form-control mr-sm-2" type="number" th:field="*{highestPrice}" placeholder="Filter by highest price" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Submit</button>
+    </form>
+</div>
 <table class="table">
     <thead>
         <tr>

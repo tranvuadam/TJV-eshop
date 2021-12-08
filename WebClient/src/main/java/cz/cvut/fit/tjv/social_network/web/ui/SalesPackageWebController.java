@@ -3,6 +3,7 @@ package cz.cvut.fit.tjv.social_network.web.ui;
 import cz.cvut.fit.tjv.social_network.web.data.ProductClient;
 import cz.cvut.fit.tjv.social_network.web.data.SalesPackageClient;
 import cz.cvut.fit.tjv.social_network.web.model.ProductWebModel;
+import cz.cvut.fit.tjv.social_network.web.model.SalesPackageFilterForm;
 import cz.cvut.fit.tjv.social_network.web.model.SalesPackageWebModel;
 import cz.cvut.fit.tjv.social_network.web.model.SalesPackageDTO;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,18 @@ public class SalesPackageWebController {
     @GetMapping
     public String list(Model model) {
         model.addAttribute("packages", salesPackageClient.readAll());
+        model.addAttribute("packageFilterForm", new SalesPackageFilterForm());
+        return "packages";
+    }
+
+    @GetMapping("/filter")
+    public String list(@ModelAttribute SalesPackageFilterForm packageFilterForm, Model model) {
+        if(packageFilterForm.getId() == null)
+            model.addAttribute("packages", salesPackageClient.readAll());
+        else
+            model.addAttribute("packages", salesPackageClient.getSalesPackagesContainingProduct(packageFilterForm.getId()));
+
+        model.addAttribute("packageFilterForm", new SalesPackageFilterForm());
         return "packages";
     }
 
