@@ -19,6 +19,7 @@
         </li>
     </ul>
 </nav>
+<div class="container">
 <h1>Register new user</h1>
 <form action="#" th:action="@{/user/add}" th:object="${userWebModel}" method="post">
     <div class="alert alert-warning" th:if="*{error}">
@@ -34,6 +35,6 @@
     </div>
     <input type="submit" class="btn btn-primary"/>
 </form>
-<a href="/user">Back to list of all users</a>
+</div>
 </body>
 </html>

@@ -19,6 +19,7 @@
         </li>
     </ul>
 </nav>
+<div class="container">
 <h1>Edit user</h1>
 <form action="#" th:action="@{/user/edit}" th:object="${userDto}" method="post">
     <div class="form-floating">
@@ -35,7 +36,6 @@
     </div>
     <input type="submit" class="btn btn-primary"/>
 </form>
-
-<a href="/user">Back to list of all users</a>
+</div>
 </body>
 </html>

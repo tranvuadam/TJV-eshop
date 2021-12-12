@@ -19,6 +19,7 @@
         </li>
     </ul>
 </nav>
+<div class="container">
 <h1>Edit package</h1>
 <div th:object="${packageForm}">
     <div class="alert alert-warning" th:if="*{numberFormatError}">
@@ -85,7 +86,6 @@
     </div>
     <input type="submit" class="btn btn-primary"/>
 </form>
-
-<a href="/package">Back to list of all packages</a>
+</div>
 </body>
 </html>
