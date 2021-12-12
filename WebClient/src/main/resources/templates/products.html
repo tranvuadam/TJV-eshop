@@ -23,8 +23,10 @@
 <div>
     <h1>Product management</h1>
     <form class="form my-2 my-lg-0" action="/product/filter" th:object="${productFilterForm}" method="get">
-        <input class="form-control mr-sm-2" type="number" th:field="*{highestPrice}" placeholder="Filter by highest price" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Submit</button>
+        <div class="row">
+        <input class="form-control w-75" type="number" th:field="*{highestPrice}" placeholder="Filter by highest price" aria-label="Search">
+        <button class="btn btn-outline-success w-25" type="submit">Submit</button>
+        </div>
     </form>
 </div>
 <table class="table">
@@ -51,7 +53,7 @@
         </td>
     </tr>
 </table>
-<p><a href="/product/add">Add Product</a> </p>
+    <a class="btn btn-success" href="/product/add"><span>+ Product</span></a>
 </div>
 </body>
 </html>

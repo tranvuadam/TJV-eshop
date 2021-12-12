@@ -23,8 +23,10 @@
 <div>
     <h1>Package management</h1>
     <form class="form my-2 my-lg-0" action="/package/filter" th:object="${packageFilterForm}" method="get">
-        <input class="form-control mr-sm-2" type="number" th:field="*{id}" placeholder="Filter by product ID" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Submit</button>
+        <div class="row">
+        <input class="form-control w-75" type="number" th:field="*{id}" placeholder="Filter packages that contain product with ID" aria-label="Search">
+        <button class="btn btn-outline-success w-25" type="submit">Submit</button>
+        </div>
     </form>
 </div>
 <table class="table">
@@ -51,7 +53,8 @@
         </td>
     </tr>
 </table>
-<p><a href="/package/add">Add Package</a> </p>
+    <a class="btn btn-success" href="/package/add"><span>+ Package</span></a>
+
 </div>
 </body>
 </html>
